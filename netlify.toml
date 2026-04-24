@@ -2,6 +2,9 @@
   publish = "."
   functions = "netlify/functions"
 
+[functions]
+  included_files = ["netlify/functions/xiangqi.cjs"]
+
 [[headers]]
   for = "/manifest.webmanifest"
   [headers.values]

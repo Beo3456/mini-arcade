@@ -1,9 +1,8 @@
 import { randomBytes, randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
 import { getStore } from "@netlify/blobs";
+import xiangqiModule from "./xiangqi.cjs";
 
-const require = createRequire(import.meta.url);
-const { Xiangqi } = require("./xiangqi.cjs");
+const { Xiangqi } = xiangqiModule;
 
 const STORE_NAME = "xiangqi-rooms";
 const ROOM_PREFIX = "rooms/";
