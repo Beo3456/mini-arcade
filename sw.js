@@ -1,13 +1,16 @@
-const CACHE_NAME = "mini-arcade-v4";
+const CACHE_NAME = "mini-arcade-v5";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
   "./xiangqi-game.js",
+  "./gomoku-game.js",
+  "./chess-game.js",
   "./manifest.webmanifest",
   "./icons/icon.svg",
   "./vendor/xiangqi.min.js",
+  "./vendor/chess.mjs",
 ];
 
 self.addEventListener("install", (event) => {

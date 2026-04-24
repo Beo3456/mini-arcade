@@ -3,7 +3,7 @@
   functions = "netlify/functions"
 
 [functions]
-  included_files = ["netlify/functions/xiangqi.cjs"]
+  included_files = ["netlify/functions/xiangqi.cjs", "netlify/functions/chess.cjs"]
 
 [[headers]]
   for = "/manifest.webmanifest"
@@ -14,3 +14,13 @@
   for = "/sw.js"
   [headers.values]
     Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.mjs"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/vendor/*.mjs"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"

@@ -184,6 +184,7 @@
       loadFen(room.fen);
       lastMove = room.lastMove;
       finished = room.status === "ended";
+      flipped = room.playerColor === "b";
       selected = null;
       legalTargets = new Set();
       statusOverride = "";
@@ -401,7 +402,7 @@
                 mode === "online" ? (canResignOnline ? "" : "disabled") : finished ? "disabled" : ""
               }>Đầu hàng</button>
             </div>
-            ${onlinePanelHtml()}
+            ${mode === "online" ? onlinePanelHtml() : ""}
             <div class="xq-help">
               <p>${mode === "online" ? "Đỏ tạo phòng, Đen nhập mã phòng. Mỗi máy tự đồng bộ sau vài giây." : "Chạm quân đúng lượt để xem nước hợp lệ, rồi chạm ô muốn đi."}</p>
             </div>

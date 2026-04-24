@@ -6,6 +6,8 @@ const SCORE_KEY = "scores.json";
 const MAX_SCORES = 500;
 const GAME_IDS = new Set([
   "xiangqi",
+  "gomoku",
+  "chess",
   "reaction",
   "bubble",
   "math",

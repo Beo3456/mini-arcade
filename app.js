@@ -36,6 +36,20 @@ const games = [
     start: startXiangqiGame,
   },
   {
+    id: "gomoku",
+    code: "CO",
+    title: "Cờ caro",
+    description: "Caro 15x15, online 2 người.",
+    start: startGomokuGame,
+  },
+  {
+    id: "chess",
+    code: "CH",
+    title: "Cờ vua",
+    description: "Cờ vua chuẩn, online 2 người.",
+    start: startChessGame,
+  },
+  {
     id: "reaction",
     code: "RT",
     title: "Phản xạ",
