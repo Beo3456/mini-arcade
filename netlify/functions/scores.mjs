@@ -4,7 +4,19 @@ import { getStore } from "@netlify/blobs";
 const STORE_NAME = "mini-arcade-scores";
 const SCORE_KEY = "scores.json";
 const MAX_SCORES = 500;
-const GAME_IDS = new Set(["reaction", "bubble", "math", "memory", "color", "typing", "number", "grid", "higher", "order"]);
+const GAME_IDS = new Set([
+  "xiangqi",
+  "reaction",
+  "bubble",
+  "math",
+  "memory",
+  "color",
+  "typing",
+  "number",
+  "grid",
+  "higher",
+  "order",
+]);
 
 const headers = {
   "Content-Type": "application/json; charset=utf-8",

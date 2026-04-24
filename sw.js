@@ -1,11 +1,13 @@
-const CACHE_NAME = "mini-arcade-v1";
+const CACHE_NAME = "mini-arcade-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./xiangqi-game.js",
   "./manifest.webmanifest",
   "./icons/icon.svg",
+  "./vendor/xiangqi.min.js",
 ];
 
 self.addEventListener("install", (event) => {

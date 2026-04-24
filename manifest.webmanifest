@@ -1,7 +1,7 @@
 {
   "name": "Mini Arcade",
   "short_name": "Arcade",
-  "description": "10 mini game co bang diem cho iPhone.",
+  "description": "Mini game va co tuong cho iPhone.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

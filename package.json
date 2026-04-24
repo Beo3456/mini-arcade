@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "check": "node --check app.js && node --check sw.js && node --check server.mjs && node --check netlify/functions/scores.mjs"
+    "check": "node --check app.js && node --check xiangqi-game.js && node --check sw.js && node --check server.mjs && node --check netlify/functions/scores.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^10.7.4"

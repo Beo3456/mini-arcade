@@ -4,10 +4,13 @@ const LOCAL_SCORES_KEY = "mini-arcade-scores-v1";
 
 const gameGrid = document.querySelector("#game-grid");
 const gameCount = document.querySelector("#game-count");
+const homeView = document.querySelector("#home-view");
+const playView = document.querySelector("#play-view");
 const stageBody = document.querySelector("#stage-body");
 const activeGameTitle = document.querySelector("#active-game-title");
 const activeGameKicker = document.querySelector("#active-game-kicker");
 const restartButton = document.querySelector("#restart-game");
+const backToGamesButton = document.querySelector("#back-to-games");
 const playerForm = document.querySelector("#player-form");
 const playerNameInput = document.querySelector("#player-name");
 const playerStatus = document.querySelector("#player-status");
@@ -25,6 +28,13 @@ const closeScoreDialogButton = document.querySelector("#close-score-dialog");
 const skipScoreButton = document.querySelector("#skip-score");
 
 const games = [
+  {
+    id: "xiangqi",
+    code: "XQ",
+    title: "Cờ tướng",
+    description: "Đấu 2 người, đúng luật cờ tướng.",
+    start: startXiangqiGame,
+  },
   {
     id: "reaction",
     code: "RT",
@@ -153,6 +163,43 @@ function clearActiveGame() {
   }
 }
 
+function renderWelcomeStage() {
+  activeGameTitle.textContent = "Chọn một game";
+  activeGameKicker.textContent = "Sẵn sàng";
+  restartButton.disabled = true;
+  stageBody.innerHTML = `
+    <div class="welcome-board">
+      <span class="welcome-mark">MA</span>
+      <p>Chọn game bất kỳ để bắt đầu.</p>
+    </div>
+  `;
+}
+
+function showHomeView() {
+  clearActiveGame();
+  activeGame = null;
+  homeView.hidden = false;
+  playView.hidden = true;
+  renderWelcomeStage();
+
+  document.querySelectorAll(".game-card").forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  window.scrollTo(0, 0);
+}
+
+function showPlayView(game, pushHistory = true) {
+  homeView.hidden = true;
+  playView.hidden = false;
+
+  if (pushHistory) {
+    history.pushState({ gameId: game.id }, "", `#${game.id}`);
+  }
+
+  window.scrollTo(0, 0);
+}
+
 function trackTimeout(callback, delay) {
   const id = window.setTimeout(callback, delay);
   cleanupTasks.push(() => window.clearTimeout(id));
@@ -195,18 +242,31 @@ function startCountdown(seconds, onTick, onDone) {
   };
 }
 
-function setActiveGame(game) {
+function setActiveGame(game, options = {}) {
+  const pushHistory = options.pushHistory ?? true;
   clearActiveGame();
   activeGame = game;
   activeGameTitle.textContent = game.title;
   activeGameKicker.textContent = "Đang chơi";
   restartButton.disabled = false;
+  showPlayView(game, pushHistory);
 
   document.querySelectorAll(".game-card").forEach((button) => {
     button.classList.toggle("active", button.dataset.gameId === game.id);
   });
 
   game.start();
+}
+
+function routeFromHash() {
+  const gameId = decodeURIComponent(location.hash.replace(/^#/, ""));
+  const game = games.find((item) => item.id === gameId);
+
+  if (game) {
+    setActiveGame(game, { pushHistory: false });
+  } else {
+    showHomeView();
+  }
 }
 
 function renderHud(items) {
@@ -1038,9 +1098,17 @@ playerForm.addEventListener("submit", (event) => {
 
 restartButton.addEventListener("click", () => {
   if (activeGame) {
-    setActiveGame(activeGame);
+    setActiveGame(activeGame, { pushHistory: false });
   }
 });
+
+backToGamesButton.addEventListener("click", () => {
+  history.replaceState(null, "", `${location.pathname}${location.search}`);
+  showHomeView();
+});
+
+window.addEventListener("popstate", routeFromHash);
+window.addEventListener("hashchange", routeFromHash);
 
 refreshScoresButton.addEventListener("click", () => loadScores());
 leaderboardFilter.addEventListener("change", () => loadScores());
@@ -1084,3 +1152,4 @@ setPlayerName(getPlayerName());
 renderGamePicker();
 renderLeaderboardFilters();
 loadScores();
+routeFromHash();

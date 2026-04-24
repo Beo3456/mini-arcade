@@ -26,30 +26,14 @@
         </form>
       </header>
 
-      <section class="dashboard">
-        <nav class="game-picker" aria-label="Danh sách mini game">
+      <section class="dashboard home-view" id="home-view">
+        <nav class="game-picker" aria-label="Danh sách game">
           <div class="section-title">
-            <h2>10 mini game</h2>
+            <h2>Danh sách game</h2>
             <span id="game-count">0 game</span>
           </div>
           <div class="game-grid" id="game-grid"></div>
         </nav>
-
-        <section class="game-stage" aria-labelledby="active-game-title">
-          <div class="stage-top">
-            <div>
-              <p class="eyebrow" id="active-game-kicker">Sẵn sàng</p>
-              <h2 id="active-game-title">Chọn một game</h2>
-            </div>
-            <button class="ghost-button" id="restart-game" type="button" disabled>Chơi lại</button>
-          </div>
-          <div class="stage-body" id="stage-body">
-            <div class="welcome-board">
-              <span class="welcome-mark">MA</span>
-              <p>Chọn game bất kỳ để bắt đầu. Sau mỗi lượt, nhập tên và lưu điểm lên bảng xếp hạng.</p>
-            </div>
-          </div>
-        </section>
 
         <aside class="leaderboard" aria-labelledby="leaderboard-title">
           <div class="section-title">
@@ -70,6 +54,25 @@
           <ol class="score-list" id="score-list"></ol>
           <p class="score-source" id="score-source">Đang tải điểm...</p>
         </aside>
+      </section>
+
+      <section class="play-view" id="play-view" hidden>
+        <section class="game-stage" aria-labelledby="active-game-title">
+          <div class="stage-top">
+            <button class="ghost-button back-button" id="back-to-games" type="button">Danh sách</button>
+            <div>
+              <p class="eyebrow" id="active-game-kicker">Sẵn sàng</p>
+              <h2 id="active-game-title">Chọn một game</h2>
+            </div>
+            <button class="ghost-button" id="restart-game" type="button" disabled>Chơi lại</button>
+          </div>
+          <div class="stage-body" id="stage-body">
+            <div class="welcome-board">
+              <span class="welcome-mark">MA</span>
+              <p>Chọn game bất kỳ để bắt đầu.</p>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
 
@@ -96,6 +99,8 @@
       </form>
     </dialog>
 
+    <script src="vendor/xiangqi.min.js" defer></script>
+    <script src="xiangqi-game.js" defer></script>
     <script src="app.js" defer></script>
   </body>
 </html>

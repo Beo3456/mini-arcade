@@ -1,6 +1,8 @@
 # Mini Arcade PWA
 
-App PWA gồm 10 mini game, có nhập tên người chơi và bảng điểm. Khi chạy local hoặc deploy tĩnh không có Functions, điểm sẽ lưu bằng `localStorage`. Khi deploy đúng trên Netlify, bảng điểm online dùng Netlify Functions + Netlify Blobs.
+App PWA gồm nhiều mini game, có thêm cờ tướng 2 người chơi trên cùng máy. Các mini game có nhập tên người chơi và bảng điểm. Khi chạy local hoặc deploy tĩnh không có Functions, điểm sẽ lưu bằng `localStorage`. Khi deploy đúng trên Netlify, bảng điểm online dùng Netlify Functions + Netlify Blobs.
+
+Phần cờ tướng dùng `xiangqi.js` để kiểm tra luật đi, nước hợp lệ, chiếu và chiếu bí. License của thư viện nằm ở `vendor/xiangqi.LICENSE.txt`.
 
 ## Chạy thử local
 
