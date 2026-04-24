@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#155e75" />
+    <title>Mini Arcade</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">PWA Arcade</p>
+          <h1>Mini Arcade</h1>
+        </div>
+        <form class="player-form" id="player-form" autocomplete="off">
+          <label for="player-name">Tên người chơi</label>
+          <div class="name-row">
+            <input id="player-name" maxlength="24" placeholder="Nhập tên" />
+            <button type="submit">Lưu</button>
+          </div>
+          <span id="player-status" aria-live="polite">Chưa có tên</span>
+        </form>
+      </header>
+
+      <section class="dashboard">
+        <nav class="game-picker" aria-label="Danh sách mini game">
+          <div class="section-title">
+            <h2>10 mini game</h2>
+            <span id="game-count">0 game</span>
+          </div>
+          <div class="game-grid" id="game-grid"></div>
+        </nav>
+
+        <section class="game-stage" aria-labelledby="active-game-title">
+          <div class="stage-top">
+            <div>
+              <p class="eyebrow" id="active-game-kicker">Sẵn sàng</p>
+              <h2 id="active-game-title">Chọn một game</h2>
+            </div>
+            <button class="ghost-button" id="restart-game" type="button" disabled>Chơi lại</button>
+          </div>
+          <div class="stage-body" id="stage-body">
+            <div class="welcome-board">
+              <span class="welcome-mark">MA</span>
+              <p>Chọn game bất kỳ để bắt đầu. Sau mỗi lượt, nhập tên và lưu điểm lên bảng xếp hạng.</p>
+            </div>
+          </div>
+        </section>
+
+        <aside class="leaderboard" aria-labelledby="leaderboard-title">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Điểm cao</p>
+              <h2 id="leaderboard-title">Bảng xếp hạng</h2>
+            </div>
+            <button class="ghost-button" id="refresh-scores" type="button" title="Tải lại điểm">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M21 12a9 9 0 0 1-15.5 6.2" />
+                <path d="M3 12A9 9 0 0 1 18.5 5.8" />
+                <path d="M18 2v4h-4" />
+                <path d="M6 22v-4h4" />
+              </svg>
+            </button>
+          </div>
+          <select id="leaderboard-filter" aria-label="Lọc bảng điểm"></select>
+          <ol class="score-list" id="score-list"></ol>
+          <p class="score-source" id="score-source">Đang tải điểm...</p>
+        </aside>
+      </section>
+    </main>
+
+    <dialog class="score-dialog" id="score-dialog">
+      <form id="score-form">
+        <div class="dialog-head">
+          <p class="eyebrow">Kết quả</p>
+          <button class="icon-only" id="close-score-dialog" type="button" aria-label="Đóng">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </button>
+        </div>
+        <h2 id="result-title">Hoàn thành</h2>
+        <p class="result-score"><span id="result-score">0</span> điểm</p>
+        <p class="result-detail" id="result-detail"></p>
+        <label for="score-name">Tên trên bảng điểm</label>
+        <input id="score-name" maxlength="24" required placeholder="Nhập tên" />
+        <menu class="dialog-actions">
+          <button class="ghost-button" id="skip-score" type="button">Bỏ qua</button>
+          <button class="primary-button" id="save-score" type="submit">Lưu điểm</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
