@@ -112,6 +112,12 @@ let currentResult = null;
 let cleanupTasks = [];
 let leaderboardScores = [];
 
+window.registerGameCleanup = (cleanup) => {
+  if (typeof cleanup === "function") {
+    cleanupTasks.push(cleanup);
+  }
+};
+
 function sanitizeName(value) {
   return value.replace(/\s+/g, " ").replace(/[\u0000-\u001f\u007f]/g, "").trim().slice(0, 24);
 }
