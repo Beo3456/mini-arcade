@@ -43,5 +43,5 @@ createServer((request, response) => {
 
   createReadStream(filePath).pipe(response);
 }).listen(port, () => {
-  console.log(`Ghi Nhanh is running at http://localhost:${port}`);
+  console.log(`Mini Arcade is running at http://localhost:${port}`);
 });

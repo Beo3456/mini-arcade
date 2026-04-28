@@ -8,7 +8,7 @@
     "r:k": "\u5e25",
     "r:a": "\u4ed5",
     "r:b": "\u76f8",
-    "r:n": "\u509c",
+    "r:n": "\u508c",
     "r:r": "\u4fe5",
     "r:c": "\u70ae",
     "r:p": "\u5175",
@@ -279,9 +279,9 @@
       const cols = flipped ? [8, 7, 6, 5, 4, 3, 2, 1, 0] : [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
       return rows
-        .map((row) =>
+        .map((row, rowIndex) =>
           cols
-            .map((col) => {
+            .map((col, colIndex) => {
               const square = squareFor(row, col);
               const piece = board[row][col];
               const classes = [
@@ -300,7 +300,7 @@
               const pieceHtml = piece ? `<span class="${pieceClasses}">${pieceLabels[`${piece.color}:${piece.type}`]}</span>` : "";
 
               return `
-                <button class="${classes}" type="button" data-square="${square}" aria-label="${square}" ${finished ? "disabled" : ""}>
+                <button class="${classes}" style="--x:${colIndex};--y:${rowIndex}" type="button" data-square="${square}" aria-label="${square}" ${finished ? "disabled" : ""}>
                   <span class="xq-coord">${square}</span>
                   ${pieceHtml}
                 </button>
