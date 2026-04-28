@@ -848,7 +848,7 @@ select:focus {
   border-radius: 50%;
   background: #fff8e7;
   box-shadow: 0 5px 12px rgba(92, 58, 24, 0.18);
-  font-family: "Times New Roman", "Noto Serif CJK SC", serif;
+  font-family: "PingFang SC", "Songti SC", "Noto Serif CJK SC", "Microsoft YaHei", "Times New Roman", serif;
   font-size: clamp(1.04rem, 4.8vw, 2.05rem);
   font-weight: 950;
   line-height: 1;
@@ -1513,10 +1513,8 @@ select:focus {
   height: calc(100% / 10 * 2);
   z-index: 1;
   pointer-events: none;
-  opacity: 0.72;
-  background:
-    linear-gradient(34deg, transparent calc(50% - 1px), rgba(83, 48, 17, 0.72) calc(50% - 1px), rgba(83, 48, 17, 0.72) calc(50% + 1px), transparent calc(50% + 1px)),
-    linear-gradient(146deg, transparent calc(50% - 1px), rgba(83, 48, 17, 0.72) calc(50% - 1px), rgba(83, 48, 17, 0.72) calc(50% + 1px), transparent calc(50% + 1px));
+  opacity: 0.82;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 100 100M100 0 0 100' fill='none' stroke='%23533011' stroke-opacity='.78' stroke-width='2' vector-effect='non-scaling-stroke' stroke-linecap='square'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
   filter: drop-shadow(0 1px 0 rgba(255, 240, 194, 0.32));
 }
 
@@ -1955,13 +1953,40 @@ select:focus {
 
   .xq-piece {
     width: 100%;
-    font-size: clamp(1.45rem, 7.2vw, 2.65rem);
-    font-weight: 950;
+    border-width: 2px;
+    background:
+      radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.94) 0 10%, transparent 11%),
+      linear-gradient(145deg, #fff8df 0%, #efd28b 56%, #d6994b 100%);
+    box-shadow:
+      inset 0 2px 5px rgba(255, 255, 255, 0.74),
+      inset 0 -5px 8px rgba(83, 45, 14, 0.2),
+      0 6px 10px rgba(38, 22, 8, 0.34);
+    font-size: clamp(1.55rem, 7.8vw, 2.7rem);
+    font-weight: 900;
+    text-shadow: 0 1px 0 rgba(255, 252, 239, 0.9);
+    -webkit-text-stroke: 0.18px currentColor;
   }
 
   .xq-piece::before {
-    inset: 10%;
-    opacity: 0.55;
+    inset: 9%;
+    border-width: 2px;
+    opacity: 0.5;
+  }
+
+  .xq-piece::after {
+    display: none;
+  }
+
+  .xq-piece.red {
+    color: #9f1118;
+    border-color: rgba(150, 25, 19, 0.72);
+    text-shadow: 0 1px 0 rgba(255, 247, 226, 0.9);
+  }
+
+  .xq-piece.black {
+    color: #030712;
+    border-color: rgba(3, 7, 18, 0.68);
+    text-shadow: 0 1px 0 rgba(255, 247, 226, 0.72);
   }
 
   .xq-check-taunt {
@@ -2008,7 +2033,7 @@ select:focus {
   }
 
   .xq-piece {
-    font-size: clamp(1.5rem, 7.6vw, 2.2rem);
+    font-size: clamp(1.58rem, 8vw, 2.32rem);
     letter-spacing: 0;
   }
 

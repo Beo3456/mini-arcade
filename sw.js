@@ -1,4 +1,4 @@
-const CACHE_NAME = "mini-arcade-v11";
+const CACHE_NAME = "mini-arcade-v12";
 const APP_SHELL = [
   "./",
   "./index.html",
