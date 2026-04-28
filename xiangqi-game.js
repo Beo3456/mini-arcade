@@ -143,6 +143,8 @@
     let statusOverride = "";
     let lastMove = null;
     let animatedMoveTo = null;
+    let checkTauntVisible = false;
+    let checkTauntTimer = null;
     let mode = "local";
     let online = {
       code: "",
@@ -161,8 +163,21 @@
       }
     }
 
+    function clearCheckTaunt() {
+      if (checkTauntTimer) {
+        clearTimeout(checkTauntTimer);
+        checkTauntTimer = null;
+      }
+      checkTauntVisible = false;
+    }
+
+    function cleanup() {
+      stopPolling();
+      clearCheckTaunt();
+    }
+
     if (typeof window.registerGameCleanup === "function") {
-      window.registerGameCleanup(stopPolling);
+      window.registerGameCleanup(cleanup);
     }
 
     function startPolling() {
@@ -178,6 +193,18 @@
       }
     }
 
+    function showCheckTaunt() {
+      checkTauntVisible = true;
+      if (checkTauntTimer) {
+        clearTimeout(checkTauntTimer);
+      }
+      checkTauntTimer = setTimeout(() => {
+        checkTauntVisible = false;
+        checkTauntTimer = null;
+        render();
+      }, 1500);
+    }
+
     function applyRoom(room) {
       const previousMoveKey = lastMove ? `${lastMove.from}-${lastMove.to}` : "";
       const incomingMove = room.lastMove ?? null;
@@ -188,6 +215,11 @@
       loadFen(room.fen);
       lastMove = incomingMove;
       animatedMoveTo = incomingMoveKey && incomingMoveKey !== previousMoveKey ? incomingMove.to : null;
+      if (animatedMoveTo && hasState(game, "in_check")) {
+        showCheckTaunt();
+      } else if (animatedMoveTo || !incomingMove) {
+        clearCheckTaunt();
+      }
       finished = room.status === "ended";
       flipped = room.playerColor === "b";
       selected = null;
@@ -391,6 +423,7 @@
                 <div class="xq-palace bottom" aria-hidden="true"></div>
                 <div class="xq-river" aria-hidden="true">SÔNG</div>
               </div>
+              ${checkTauntVisible ? `<div class="xq-check-taunt" role="status" aria-live="polite">tuổi gì đòi ăn mì</div>` : ""}
             </div>
           </section>
 
@@ -454,6 +487,11 @@
         if (move) {
           lastMove = { from: move.from, to: move.to };
           animatedMoveTo = move.to;
+          if (hasState(game, "in_check")) {
+            showCheckTaunt();
+          } else {
+            clearCheckTaunt();
+          }
           selected = null;
           statusOverride = "";
           render();
@@ -478,6 +516,7 @@
       statusOverride = "";
       lastMove = null;
       animatedMoveTo = null;
+      clearCheckTaunt();
     }
 
     function switchLocal() {
@@ -491,6 +530,7 @@
       mode = "online";
       selected = null;
       online.error = "";
+      clearCheckTaunt();
       render();
     }
 
@@ -519,6 +559,7 @@
       const previous = history[history.length - 1];
       lastMove = previous ? { from: previous.from, to: previous.to } : null;
       animatedMoveTo = null;
+      clearCheckTaunt();
       render();
     }
 
@@ -537,6 +578,7 @@
       finished = true;
       selected = null;
       legalTargets = new Set();
+      clearCheckTaunt();
       render();
     }
 
