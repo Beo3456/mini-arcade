@@ -288,14 +288,16 @@
                 "xq-square",
                 selected === square ? "selected" : "",
                 legalTargets.has(square) ? "legal" : "",
+                legalTargets.has(square) && piece ? "capture" : "",
                 lastMove?.from === square || lastMove?.to === square ? "last" : "",
               ]
                 .filter(Boolean)
                 .join(" ");
 
-              const pieceHtml = piece
-                ? `<span class="xq-piece ${piece.color === "r" ? "red" : "black"}">${pieceLabels[`${piece.color}:${piece.type}`]}</span>`
+              const pieceClasses = piece
+                ? ["xq-piece", piece.color === "r" ? "red" : "black", lastMove?.to === square ? "moved" : ""].filter(Boolean).join(" ")
                 : "";
+              const pieceHtml = piece ? `<span class="${pieceClasses}">${pieceLabels[`${piece.color}:${piece.type}`]}</span>` : "";
 
               return `
                 <button class="${classes}" type="button" data-square="${square}" aria-label="${square}" ${finished ? "disabled" : ""}>
@@ -380,6 +382,8 @@
             <div class="xiangqi-board-wrap">
               <div class="xiangqi-board" id="xiangqi-board">
                 ${boardHtml()}
+                <div class="xq-palace top" aria-hidden="true"></div>
+                <div class="xq-palace bottom" aria-hidden="true"></div>
                 <div class="xq-river" aria-hidden="true">SÔNG</div>
               </div>
             </div>
