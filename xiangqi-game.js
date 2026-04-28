@@ -142,6 +142,7 @@
     let finished = false;
     let statusOverride = "";
     let lastMove = null;
+    let animatedMoveTo = null;
     let mode = "local";
     let online = {
       code: "",
@@ -178,11 +179,15 @@
     }
 
     function applyRoom(room) {
+      const previousMoveKey = lastMove ? `${lastMove.from}-${lastMove.to}` : "";
+      const incomingMove = room.lastMove ?? null;
+      const incomingMoveKey = incomingMove ? `${incomingMove.from}-${incomingMove.to}` : "";
       online.room = room;
       online.code = room.code;
       online.color = room.playerColor;
       loadFen(room.fen);
-      lastMove = room.lastMove;
+      lastMove = incomingMove;
+      animatedMoveTo = incomingMoveKey && incomingMoveKey !== previousMoveKey ? incomingMove.to : null;
       finished = room.status === "ended";
       flipped = room.playerColor === "b";
       selected = null;
@@ -295,7 +300,7 @@
                 .join(" ");
 
               const pieceClasses = piece
-                ? ["xq-piece", piece.color === "r" ? "red" : "black", lastMove?.to === square ? "moved" : ""].filter(Boolean).join(" ")
+                ? ["xq-piece", piece.color === "r" ? "red" : "black", animatedMoveTo === square ? "moved" : ""].filter(Boolean).join(" ")
                 : "";
               const pieceHtml = piece ? `<span class="${pieceClasses}">${pieceLabels[`${piece.color}:${piece.type}`]}</span>` : "";
 
@@ -426,6 +431,8 @@
       if (mode === "online") {
         bindOnlineControls();
       }
+
+      animatedMoveTo = null;
     }
 
     async function onBoardClick(event) {
@@ -446,6 +453,7 @@
         const move = game.move({ from: selected, to: square });
         if (move) {
           lastMove = { from: move.from, to: move.to };
+          animatedMoveTo = move.to;
           selected = null;
           statusOverride = "";
           render();
@@ -469,6 +477,7 @@
       finished = false;
       statusOverride = "";
       lastMove = null;
+      animatedMoveTo = null;
     }
 
     function switchLocal() {
@@ -509,6 +518,7 @@
       const history = game.history({ verbose: true });
       const previous = history[history.length - 1];
       lastMove = previous ? { from: previous.from, to: previous.to } : null;
+      animatedMoveTo = null;
       render();
     }
 
